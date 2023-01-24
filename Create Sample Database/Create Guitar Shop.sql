@@ -4,16 +4,17 @@
 USE master;
 GO
 
+--Remove db if it already exists and recreate it (create fresh db)
 IF  DB_ID('MyGuitarShop') IS NOT NULL
 DROP DATABASE MyGuitarShop;
 GO
-
 CREATE DATABASE MyGuitarShop;
 GO
 
+--Point to the db we just created
 USE MyGuitarShop;
 
--- create the tables for the database
+--Create the tables for the db
 CREATE TABLE Categories (
   CategoryID        INT            PRIMARY KEY   IDENTITY,
   CategoryName      VARCHAR(255)   NOT NULL      UNIQUE
@@ -84,19 +85,15 @@ CREATE TABLE Administrators (
 );
 
 -- Insert data into the tables
-
-SET IDENTITY_INSERT Categories ON;
-
+SET IDENTITY_INSERT Categories ON; --Allow explicit entries
 INSERT INTO Categories (CategoryID, CategoryName) VALUES
 (1, 'Guitars'),
 (2, 'Basses'),
 (3, 'Drums'), 
 (4, 'Keyboards');
+SET IDENTITY_INSERT Categories OFF; --Disallow explicit entries
 
-SET IDENTITY_INSERT Categories OFF;
-
-SET IDENTITY_INSERT Products ON;
-
+SET IDENTITY_INSERT Products ON; --Allow explicit entries
 INSERT INTO Products (ProductID, CategoryID, ProductCode, ProductName, Description, ListPrice, DiscountPercent, DateAdded) VALUES
 (1, 1, 'strat', 'Fender Stratocaster', 'The Fender Stratocaster is the electric guitar design that changed the world. New features include a tinted neck, parchment pickguard and control knobs, and a ''70s-style logo. Includes select alder body, 21-fret maple neck with your choice of a rosewood or maple fretboard, 3 single-coil pickups, vintage-style tremolo, and die-cast tuning keys. This guitar features a thicker bridge block for increased sustain and a more stable point of contact with the strings. At this low price, why play anything but the real thing?\r\n\r\nFeatures:\r\n\r\n* New features:\r\n* Thicker bridge block\r\n* 3-ply parchment pick guard\r\n* Tinted neck', '699.00', '30.00', '2011-10-30 09:32:40'),
 (2, 1, 'les_paul', 'Gibson Les Paul', 'This Les Paul guitar offers a carved top and humbucking pickups. It has a simple yet elegant design. Cutting-yet-rich tone?the hallmark of the Les Paul?pours out of the 490R and 498T Alnico II magnet humbucker pickups, which are mounted on a carved maple top with a mahogany back. The faded finish models are equipped with BurstBucker Pro pickups and a mahogany top. This guitar includes a Gibson hardshell case (Faded and satin finish models come with a gig bag) and a limited lifetime warranty.\r\n\r\nFeatures:\r\n\r\n* Carved maple top and mahogany back (Mahogany top on faded finish models)\r\n* Mahogany neck, ''59 Rounded Les Paul\r\n* Rosewood fingerboard (Ebony on Alpine white)\r\n* Tune-O-Matic bridge with stopbar\r\n* Chrome or gold hardware\r\n* 490R and 498T Alnico 2 magnet humbucker pickups (BurstBucker Pro on faded finish models)\r\n* 2 volume and 2 tone knobs, 3-way switch', '1199.00', '30.00', '2011-12-05 16:33:13'),
@@ -108,11 +105,9 @@ INSERT INTO Products (ProductID, CategoryID, ProductCode, ProductName, Descripti
 (8, 2, 'hofner', 'Hofner Icon', 'With authentic details inspired by the original, the Hofner Icon makes the legendary violin bass available to the rest of us. Don''t get the idea that this a just a "nowhere man" look-alike. This quality instrument features a real spruce top and beautiful flamed maple back and sides. The semi-hollow body and set neck will give you the warm, round tone you expect from the violin bass.\r\n\r\nFeatures:\r\n\r\n* Authentic details inspired by the original\r\n* Spruce top\r\n* Flamed maple back and sides\r\n* Set neck\r\n* Rosewood fretboard\r\n* 30" scale\r\n* 22 frets\r\n* Dot inlay', '499.99', '25.00', '2012-07-30 14:18:33'),
 (9, 3, 'ludwig', 'Ludwig 5-piece Drum Set with Cymbals', 'This product includes a Ludwig 5-piece drum set and a Zildjian starter cymbal pack.\r\n\r\nWith the Ludwig drum set, you get famous Ludwig quality. This set features a bass drum, two toms, a floor tom, and a snare?each with a wrapped finish. Drum hardware includes LA214FP bass pedal, snare stand, cymbal stand, hi-hat stand, and a throne.\r\n\r\nWith the Zildjian cymbal pack, you get a 14" crash, 18" crash/ride, and a pair of 13" hi-hats. Sound grooves and round hammer strikes in a simple circular pattern on the top surface of these cymbals magnify the basic sound of the distinctive alloy.\r\n\r\nFeatures:\r\n\r\n* Famous Ludwig quality\r\n* Wrapped finishes\r\n* 22" x 16" kick drum\r\n* 12" x 10" and 13" x 11" toms\r\n* 16" x 16" floor tom\r\n* 14" x 6-1/2" snare drum kick pedal\r\n* Snare stand\r\n* Straight cymbal stand hi-hat stand\r\n* FREE throne', '699.99', '30.00', '2012-07-30 12:46:40'),
 (10, 3, 'tama', 'Tama 5-Piece Drum Set with Cymbals', 'The Tama 5-piece Drum Set is the most affordable Tama drum kit ever to incorporate so many high-end features.\r\n\r\nWith over 40 years of experience, Tama knows what drummers really want. Which is why, no matter how long you''ve been playing the drums, no matter what budget you have to work with, Tama has the set you need, want, and can afford. Every aspect of the modern drum kit was exhaustively examined and reexamined and then improved before it was accepted as part of the Tama design. Which is why, if you start playing Tama now as a beginner, you''ll still enjoy playing it when you''ve achieved pro-status. That''s how good these groundbreaking new drums are.\r\n\r\nOnly Tama comes with a complete set of genuine Meinl HCS cymbals. These high-quality brass cymbals are made in Germany and are sonically matched so they sound great together. They are even lathed for a more refined tonal character. The set includes 14" hi-hats, 16" crash cymbal, and a 20" ride cymbal.\r\n\r\nFeatures:\r\n\r\n* 100% poplar 6-ply/7.5mm shells\r\n* Precise bearing edges\r\n* 100% glued finishes\r\n* Original small lugs\r\n* Drum heads\r\n* Accu-tune bass drum hoops\r\n* Spur brackets\r\n* Tom holder\r\n* Tom brackets', '799.99', '15.00', '2012-07-30 13:14:15');
+SET IDENTITY_INSERT Products OFF; --Disallow explicit entries
 
-SET IDENTITY_INSERT Products OFF;
-
-SET IDENTITY_INSERT Customers ON;
-
+SET IDENTITY_INSERT Customers ON; --Allow explicit entries
 INSERT INTO Customers (CustomerID, EmailAddress, Password, FirstName, LastName, ShippingAddressID, BillingAddressID) VALUES
 (1, 'allan.sherwood@yahoo.com', 'c44321e51ec184a2f739318639cec426de774451', 'Allan', 'Sherwood', 1, 2),
 (2, 'barryz@gmail.com', 'd9e03c0b34c57d034edda004ec8bae5d53667e36', 'Barry', 'Zimmer', 3, 3),
@@ -599,11 +594,9 @@ INSERT INTO Customers (CustomerID, EmailAddress, Password, FirstName, LastName, 
 (483, 'diane@cox.net', 'fba3f2a325a4e4eaf5992cbcc910ef91ecee3191', 'Diane', 'Devreese', 510, 510),
 (484, 'roslyn.chavous@chavous.org', '3bf8ab2bdbc781f2000472c4fd9d86d6433ccd35', 'Roslyn', 'Chavous', 511, 511),
 (485, 'glory@yahoo.com', '31c689d737359ce214d095f5b0bcf6de82e57f3d', 'Glory', 'Schieler', 512, 512);
+SET IDENTITY_INSERT Customers OFF; --Disallow explicit entries
 
-SET IDENTITY_INSERT Customers OFF;
-
-SET IDENTITY_INSERT Addresses ON;
-
+SET IDENTITY_INSERT Addresses ON; --Allow explicit entries
 INSERT INTO Addresses (AddressID, CustomerID, Line1, Line2, City, State, ZipCode, Phone, Disabled) VALUES
 (1, 1, '100 East Ridgewood Ave.', '', 'Paramus', 'NJ', '07652', '201-653-4472', 0),
 (2, 1, '21 Rosewood Rd.', '', 'Woodcliff Lake', 'NJ', '07677', '201-653-4472', 0),
@@ -1117,11 +1110,9 @@ INSERT INTO Addresses (AddressID, CustomerID, Line1, Line2, City, State, ZipCode
 (510, 483, '2094 Ne 36th Ave', '', 'Worcester', 'MA', '1603', '508-658-7802', 0),
 (511, 484, '7667 S Hulen St #42', '', 'Yonkers', 'NY', '10701', '914-654-1426', 0),
 (512, 485, '8573 Lincoln Blvd', '', 'York', 'PA', '17404', '717-344-2804', 0);
+SET IDENTITY_INSERT Addresses OFF; --Disallow explicit entries
 
-SET IDENTITY_INSERT Addresses OFF;
-
-SET IDENTITY_INSERT Orders ON;
-
+SET IDENTITY_INSERT Orders ON; --Allow explicit entries
 INSERT INTO Orders (OrderID, CustomerID, OrderDate, ShipAmount, TaxAmount, ShipDate, ShipAddressID, CardType, CardNumber, CardExpires, BillingAddressID) VALUES
 (1, 1, CAST(0x0000A022009F6E10 AS DateTime), 5.0000, 58.7500, CAST(0x0000A025009FA074 AS DateTime), 1, 'Visa', '4111111111111111', '04/2014', 2),
 (2, 2, CAST(0x0000A02200BBAEE0 AS DateTime), 5.0000, 21.2700, CAST(0x0000A02500BBE144 AS DateTime), 3, 'Visa', '4012888888881881', '08/2016', 3),
@@ -1164,11 +1155,9 @@ INSERT INTO Orders (OrderID, CustomerID, OrderDate, ShipAmount, TaxAmount, ShipD
 (39, 29, CAST(0x0000A04B0170B5D8 AS DateTime), 5.0000, 0.0000, NULL, 36, 'Visa', '4012888888881881', '01/2014', 37),
 (40, 34, CAST(0x0000A04B0165768C AS DateTime), 5.0000, 34.2500, NULL, 44, 'American Express', '3782822463100005', '08/2013', 44),
 (41, 35, CAST(0x0000A04C0081E3F4 AS DateTime), 10.0000, 55.5200, NULL, 45, 'Visa', '4111111111111111', '05/2014', 45);
+SET IDENTITY_INSERT Orders OFF; --Disallow explicit entries
 
-SET IDENTITY_INSERT Orders OFF;
-
-SET IDENTITY_INSERT OrderItems ON;
-
+SET IDENTITY_INSERT OrderItems ON; --Allow explicit entries
 INSERT INTO OrderItems (ItemID, OrderID, ProductID, ItemPrice, DiscountAmount, Quantity) VALUES
 (1, 1, 2, '1199.00', '359.70', 1),
 (2, 2, 8, '489.99', '186.20', 1),
@@ -1217,14 +1206,11 @@ INSERT INTO OrderItems (ItemID, OrderID, ProductID, ItemPrice, DiscountAmount, Q
 (45, 40, 6, '699.00', '209.70', 1),
 (46, 41, 8, '489.99', '186.20', 1),
 (47, 41, 6, '699.00', '209.70', 1);
+SET IDENTITY_INSERT OrderItems OFF; --Disallow explicit entries
 
-SET IDENTITY_INSERT OrderItems OFF;
-
-SET IDENTITY_INSERT Administrators ON;
-
+SET IDENTITY_INSERT Administrators ON; --Allow explicit entries
 INSERT INTO Administrators (AdminID, EmailAddress, Password, FirstName, LastName) VALUES
 (1, 'admin@myguitarshop.com', '6a718fbd768c2378b511f8249b54897f940e9022', 'Admin', 'User'),
 (2, 'joel@murach.com', '971e95957d3b74d70d79c20c94e9cd91b85f7aae', 'Joel', 'Murach'),
 (3, 'mike@murach.com', '3f2975c819cefc686282456aeae3a137bf896ee8', 'Mike', 'Murach');
-
-SET IDENTITY_INSERT Administrators OFF;
+SET IDENTITY_INSERT Administrators OFF; --Disallow explicit entries
