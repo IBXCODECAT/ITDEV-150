@@ -3,12 +3,12 @@
 USE MyGuitarShop
 
 --Exercise One
-SELECT ProductName, ListPrice, DateAdded 
-FROM dbo.Products 
+SELECT ProductName, ListPrice, DateAdded
+FROM dbo.Products
 ORDER BY ProductName ASC
 
 --Exercise Two
-SELECT * 
+SELECT *
 FROM dbo.Categories 
 ORDER BY CategoryID DESC
 
