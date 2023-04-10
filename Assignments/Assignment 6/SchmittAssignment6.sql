@@ -19,7 +19,5 @@ FROM Products
 
 --3
 SELECT
-	
-	CONVERT(varchar(10), CAST(OrderDate AS date), 101) AS d
-	
+	CONVERT(varchar(10), CAST(OrderDate AS date), 101) AS Date
 FROM Orders
